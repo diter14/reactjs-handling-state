@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import CartCounter from './../Atoms/CartCounter'
 
 const MainMenu = (props) => {
     return (
@@ -18,6 +19,7 @@ const MainMenu = (props) => {
                             <li><NavLink to="/formulario" activeClassName="active">Form</NavLink></li>
                             <li><NavLink to="/historial" activeClassName="active">History</NavLink></li>
                             <li><NavLink to="/usuarios" activeClassName="active">Users</NavLink></li>
+                            <CartCounter></CartCounter>
                         </ul>
                     </nav>
                     <div className="main-menu-toggle to-l" id="main-menu-toggle"></div>

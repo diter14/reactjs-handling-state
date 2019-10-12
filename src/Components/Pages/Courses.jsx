@@ -15,7 +15,6 @@ class Courses extends Component {
     componentDidMount() {
         axios.get('https://my-json-server.typicode.com/diter14/fake-resources/cursos')
             .then( response => {
-                console.log(response)
                 this.setState({
                     courses: response.data
                 })
