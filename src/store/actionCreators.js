@@ -1,10 +1,16 @@
 import { 
     ADD_TO_CART,
+    REMOVE_FROM_CART,
     UPDATE_CONTACT_FORM_FIELD,
 } from './actions'
 
 const addToCart = id => ({
     type: ADD_TO_CART,
+    id
+})
+
+const removeFromCart = id => ({
+    type: REMOVE_FROM_CART,
     id
 })
 
@@ -18,5 +24,6 @@ const updateContactField = ({fieldName, fieldValue}) => ({
 
 export {
     addToCart,
+    removeFromCart,
     updateContactField
 }

@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addToCart } from '../../store/actionCreators'
+import { addToCart, removeFromCart } from '../../store/actionCreators'
 
-const CourseCard = ({ id, title, poster, teacher, price, addCourseToCart }) => {
+const CourseCard = ({ id, title, poster, teacher, price, addCourseToCart, removeCourseFromCart, cart }) => {
     return (
         <article className="card">
             <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
@@ -18,22 +18,29 @@ const CourseCard = ({ id, title, poster, teacher, price, addCourseToCart }) => {
                 </h3>
                 <div className="s-mb-2 s-main-center">
                     <div className="card__teacher s-cross-center">
-                        {/* <div className="card__avatar s-mr-1">
-                            <div className="circle img-container">
-                                <img src="https://api.ed.team/files/avatars/66813820-2857-4af9-b84f-9196acbb832e.jpg" alt="Avatar"/>
-                            </div>
-                        </div> */}
                         <span className="small">{teacher}</span>
                     </div>
                 </div>
                 <div className="s-main-center">
-                    <button 
-                        className="button--ghost-alert button--tiny"
-                        href="/"
-                        onClick={() => addCourseToCart(id) }
-                        >
-                        $ {price}
-                    </button>
+                    {
+                        cart.find((cartElId) => cartElId === id)
+                        ? (
+                            <button 
+                                className="button--ghost-alert button--tiny"
+                                onClick={() => removeCourseFromCart(id) }
+                                >
+                                Remove from cart
+                            </button>
+                        )
+                        : (
+                            <button 
+                                className="button--ghost-alert button--tiny"
+                                onClick={() => addCourseToCart(id) }
+                                >
+                                $ {price}
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </article>
@@ -54,11 +61,16 @@ CourseCard.defaultProps = {
     price: 0
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+    cart: state.cart
+})
 
 const mapDispatchToProps = (dispatch) => ({
     addCourseToCart(id){
         dispatch(addToCart(id))
+    },
+    removeCourseFromCart(id){
+        dispatch(removeFromCart(id))
     }
 })
 
