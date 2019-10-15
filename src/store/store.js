@@ -8,7 +8,9 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { 
     ADD_TO_CART,
     REMOVE_FROM_CART,
-    GET_COURSE_LIST
+    GET_COURSE_LIST,
+    GET_USER_LIST,
+    REMOVE_USER
 } from './actions'
 
 const initialCart = {
@@ -21,6 +23,10 @@ const initialCart = {
 
 const initialCourses = {
     courses: []
+}
+
+const initialUsers = {
+    users: []
 }
 
 const cartReducer = (state = initialCart, action) => {
@@ -53,7 +59,23 @@ const coursesReducer = (state = initialCourses, action) => {
     return state
 }
 
+const usersReducer = (state = initialUsers, action) => {
+    if (action.type === GET_USER_LIST) {
+        return {
+            ...state,
+            users: action.users
+        }
+    }
+    if (action.type === REMOVE_USER) {
+        return {
+            ...state,
+            users: state.users.filter((user) => user.id.value !== action.id)
+        }
+    }
+    return state
+}
+
 export default createStore(
-    combineReducers({cartReducer, coursesReducer}),
+    combineReducers({cartReducer, coursesReducer, usersReducer}),
     composeWithDevTools(applyMiddleware(thunk))
 )

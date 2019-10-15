@@ -1,39 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import UsersGrid from '../Organisms/UsersGrid'
-import axios from 'axios'
+import { connect } from 'react-redux'
 
-class User extends Component {
+const User = ({users}) => (<UsersGrid users={users} />)
 
-    constructor(props) {
-        super(props)
+const mapStateToProps = (state) => ({
+    users: state.usersReducer.users
+})
 
-        this.state = {
-            users: [],
-        }
+const mapDispatchToProps = (dispatch) => ({})
 
-    }
-
-    componentDidMount() {
-        axios.get('https://randomuser.me/api/?results=50')
-            .then( response => {
-                this.setState({
-                    users: response.data.results
-                })
-            })
-    }
-
-    render() {
-        const { users } = this.state
-        return (
-            <UsersGrid users={users} />
-        )
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-    }
-
-    componentWillUnmount() {
-    }
-}
-
-export default User
+export default connect(mapStateToProps, mapDispatchToProps)(User)

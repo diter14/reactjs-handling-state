@@ -2,6 +2,8 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART,
     GET_COURSE_LIST,
+    GET_USER_LIST,
+    REMOVE_USER,
     UPDATE_CONTACT_FORM_FIELD,
 } from './actions'
 
@@ -17,7 +19,7 @@ const removeFromCart = id => ({
     id
 })
 
-const getCourses = () => dispatch => {
+const getCourses = () => (dispatch) => {
     axios.get('https://my-json-server.typicode.com/diter14/fake-resources/cursos')
         .then(response => {
             return dispatch({
@@ -26,6 +28,21 @@ const getCourses = () => dispatch => {
             })
         })
 }
+
+const getUsers = () => (dispatch) => {
+    axios.get('https://randomuser.me/api/?results=50')
+        .then(response => {
+            return dispatch({
+                type: GET_USER_LIST,
+                users: response.data.results
+            })
+        })
+}
+
+const removeUser = (id) => ({
+    type: REMOVE_USER,
+    id
+})
 
 const updateContactField = ({fieldName, fieldValue}) => ({
     type: UPDATE_CONTACT_FORM_FIELD,
@@ -39,5 +56,7 @@ export {
     addToCart,
     removeFromCart,
     getCourses,
+    getUsers,
+    removeUser,
     updateContactField
 }

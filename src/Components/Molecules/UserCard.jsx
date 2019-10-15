@@ -1,14 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { Link } from 'react-router-dom'
+import { removeUser } from '../../store/actionCreators'
+import { connect } from 'react-redux';
 
-const UserCard = ({ id, large_avatar, username, avatar, email }) => {
+const closeButtonStyle = {background: 'tomato', color: 'white', paddingLeft: '11px', cursor: 'pointer'}
+
+const UserCard = ({ id, large_avatar, username, avatar, email, removeUserFromList }) => {
     return (
         <article className="card">
             <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
-                {/* <Link to={`/cursos/${id}`}> */}
-                    <img src={large_avatar} alt={username}/>
-                {/* </Link> */}
+                <img src={large_avatar} alt={username}/>
+                <div class="s-mb-2 s-main-end">
+                    <div class="card__teacher s-cross-center">
+                        <div class="card__avatar s-mr-1">
+                            <div 
+                                class="circle img-container"
+                                style={closeButtonStyle}
+                                onClick={() => removeUserFromList(id)}
+                                >X
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="card__data s-border s-radius-br s-radius-bl s-pxy-2">
                 <h3 className="t4 s-mb-2 s-center">
@@ -24,7 +37,6 @@ const UserCard = ({ id, large_avatar, username, avatar, email }) => {
                                     />
                             </div>
                         </div>
-                        {/* <span className="small">{username}</span> */}
                     </div>
                 </div>
                 <div className="s-main-center">
@@ -49,4 +61,12 @@ UserCard.defaultProps = {
     email: ''
 }
 
-export default UserCard
+const mapStateToProps = (state) => ({})
+
+const mapDispatchToProps = (dispatch) => ({
+    removeUserFromList(id) {
+        dispatch(removeUser(id))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserCard)
