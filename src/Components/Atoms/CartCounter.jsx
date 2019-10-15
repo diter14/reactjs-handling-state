@@ -13,7 +13,7 @@ const CartCounter = ({cartLength}) => {
 
 const mapStateToProps = (state) => {
     return {
-        cartLength: state.cart.length
+        cartLength: state.cartReducer.cart.length
     }
 }
 
