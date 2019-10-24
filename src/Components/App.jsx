@@ -12,31 +12,34 @@ import Public from './Pages/Public'
 import Private from './Pages/Private'
 import Files from './Pages/Files'
 import Placeholder from './Pages/Placeholder'
+import CoursesProvider from './../Context/CoursesProvider'
 
 const App = () => (
-    <Router>
-        <MainMenu/>
-        <Switch>
-            <Route path="/" exact component={ Home }/>
-            <Route path="/public" exact component={ Public }/>
-            <Route path="/private" exact component={ Private }/>
-            <Route path="/files" exact component={ Files }/>
-            <Route path="/placeholder" exact component={ Placeholder }/>
-            <Route path="/cursos/:id" component={Course} />
-            <Route path="/cursos" component={ Courses }/>
-            <Route path="/historial" component={ History }/>
-            <Route path="/usuarios" component={ User }/>
-            <Route path="/formulario" component={ () => <Form title="Formulario de Contacto" /> }/>
-            <Route component={ () =>{
-                return (
-                    <div className="ed-grid">
-                        <h1 className="t1">ERROR 404</h1>
-                        <p>Page not found</p>
-                    </div>
-                )
-            } } />
-        </Switch>
-    </Router>
+    <CoursesProvider>
+        <Router>
+            <MainMenu/>
+            <Switch>
+                <Route path="/" exact component={ Home }/>
+                <Route path="/public" exact component={ Public }/>
+                <Route path="/private" exact component={ Private }/>
+                <Route path="/files" exact component={ Files }/>
+                <Route path="/placeholder" exact component={ Placeholder }/>
+                <Route path="/cursos/:id" component={Course} />
+                <Route path="/cursos" component={ Courses }/>
+                <Route path="/historial" component={ History }/>
+                <Route path="/usuarios" component={ User }/>
+                <Route path="/formulario" component={ () => <Form title="Formulario de Contacto" /> }/>
+                <Route component={ () =>{
+                    return (
+                        <div className="ed-grid">
+                            <h1 className="t1">ERROR 404</h1>
+                            <p>Page not found</p>
+                        </div>
+                    )
+                } } />
+            </Switch>
+        </Router>
+    </CoursesProvider>
 )
 
 export default App

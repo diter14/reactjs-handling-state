@@ -15,7 +15,7 @@ const CourseGrid = ({ courses }) => {
                                 id={course.id}
                                 title={course.name}
                                 poster={course.picture}
-                                price={0}
+                                price={Math.round(Math.random()*100)}
                                 teacher={course.subtitle}
                                 />
                 })

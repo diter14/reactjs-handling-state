@@ -1,36 +1,11 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
 import CourseGrid from '../Organisms/CourseGrid'
+import CoursesContext from '../../Context/CoursesContext'
 
-class Courses extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            courses: []
-        }
-    }
-
-    componentDidMount() {
-        axios.get('https://my-json-server.typicode.com/diter14/fake-resources/cursos')
-            .then( response => {
-                console.log(response)
-                this.setState({
-                    courses: response.data
-                })
-            })
-    }
-
-    render() {
-        const { courses } = this.state
-        return (
-            <CourseGrid
-                courses={courses}
-                >
-            </CourseGrid>
-        )
-    }
-}
+const Courses = () => (
+    <CoursesContext.Consumer>
+        { context => <CourseGrid courses={context.courses}></CourseGrid> }
+    </CoursesContext.Consumer>
+)
 
 export default Courses
