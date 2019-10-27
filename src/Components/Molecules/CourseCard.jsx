@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
+import CartContext from './../../Context/Cart/CartContext';
+import { ADD_TO_CART, REMOVE_TO_CART } from './../../Context/Cart/actions';
 
 const CourseCard = ({ id, title, poster, teacher, price }) => {
+
+    const [state, dispatch] = useContext(CartContext)
+
     return (
         <article className="card">
             <div className="img-container s-ratio-16-9 s-radius-tr s-radius-tl">
@@ -16,16 +21,35 @@ const CourseCard = ({ id, title, poster, teacher, price }) => {
                 </h3>
                 <div className="s-mb-2 s-main-center">
                     <div className="card__teacher s-cross-center">
-                        {/* <div className="card__avatar s-mr-1">
-                            <div className="circle img-container">
-                                <img src="https://api.ed.team/files/avatars/66813820-2857-4af9-b84f-9196acbb832e.jpg" alt="Avatar"/>
-                            </div>
-                        </div> */}
                         <span className="small">{teacher}</span>
                     </div>
                 </div>
                 <div className="s-main-center">
-                    <a className="button--ghost-alert button--tiny" href="/">$ {price}</a>
+                    {
+                        (state.cart.find(cartId => cartId === id))
+                        ? (
+                            <button 
+                                className="button--ghost-alert button--tiny"
+                                onClick={() => dispatch({
+                                    type: REMOVE_TO_CART,
+                                    id
+                                })}
+                                >
+                                Remover del carro
+                            </button>
+                        )
+                        : (
+                            <button 
+                                className="button--ghost-alert button--tiny"
+                                onClick={() => dispatch({
+                                    type: ADD_TO_CART,
+                                    id
+                                })}
+                                >
+                                $ {price}
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </article>
